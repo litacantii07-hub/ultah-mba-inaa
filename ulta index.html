@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎉 Selamat Ulang Tahun, Mba Inaa 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #fff0f5, #ffe4e1);
+      text-align: center;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      color: #ff4d8d;
+      margin-top: 50px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    p {
+      font-size: 1.2em;
+      max-width: 600px;
+      margin: 20px auto;
+      line-height: 1.6;
+    }
+
+    button {
+      background-color: #ff4d8d;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff6fa8;
+      transform: scale(1.1);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .balon {
+      font-size: 2.5em;
+      margin: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .balon:hover {
+      transform: scale(1.2);
+    }
+
+    .love-area {
+      width: 200px;
+      height: 200px;
+      margin: 30px auto;
+      border-radius: 50%;
+      border: 3px dashed #ff4d8d;
+      position: relative;
+    }
+
+    .love {
+      position: absolute;
+      font-size: 2em;
+      cursor: grab;
+    }
+
+    .hadiah {
+      font-size: 3em;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: transform 0.2s;
+    }
+
+    .hadiah:hover {
+      transform: scale(1.2);
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #777;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* efek confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: pink;
+      animation: fall 3s linear forwards;
+      top: 0;
+      z-index: 9999;
+    }
+
+    @keyframes fall {
+      to {transform: translateY(100vh) rotate(720deg);}
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎂 Selamat Ulang Tahun, Mba Inaa 💖</h1>
+  <p id="intro">Hari ini hari spesial untuk Mba Inaa! Tapi sebelum dapat ucapannya, ayo main 3 misi seru dulu 😄✨</p>
+  <button id="startBtn">Mulai Misi 🎯</button>
+
+  <!-- Misi 1 -->
+  <div id="misi1" class="hidden">
+    <h2>Misi 1 🎈</h2>
+    <p>Pilih balon yang berisi pesan pertama! 🥰</p>
+    <div>
+      <span class="balon" data-right="false">🎈</span>
+      <span class="balon" data-right="true">🎈</span>
+      <span class="balon" data-right="false">🎈</span>
+    </div>
+  </div>
+
+  <!-- Misi 2 -->
+  <div id="misi2" class="hidden">
+    <h2>Misi 2 💖</h2>
+    <p>Geser love ke tengah lingkaran buat lanjut ke ucapan berikutnya 💞</p>
+    <div class="love-area" id="loveArea">
+      <div class="love" id="love">💗</div>
+    </div>
+  </div>
+
+  <!-- Misi 3 -->
+  <div id="misi3" class="hidden">
+    <h2>Misi 3 🎁</h2>
+    <p>Klik kotak hadiah buat buka ucapan terakhir 🎊</p>
+    <div class="hadiah" id="hadiah">🎁</div>
+  </div>
+
+  <!-- Ucapan -->
+  <div id="ucapan" class="hidden">
+    <h2>💌 Ucapan dari hati 💌</h2>
+    <p id="textUcapan"></p>
+  </div>
+
+  <!-- Musik -->
+  <audio autoplay loop>
+    <source src="https://dl.dropboxusercontent.com/scl/fi/3wj49nbq5zk0u8tpe1t7b/Pharrell-Williams-Happy.mp3?rlkey=wqgw6tzj34gmmgjzpb5v2l2w7&dl=0" type="audio/mpeg">
+  </audio>
+
+  <footer>🌸 Terima kasih sudah lahir dan membawa kebaikan di dunia ini, Mba Inaa 🌸</footer>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const misi1 = document.getElementById('misi1');
+    const misi2 = document.getElementById('misi2');
+    const misi3 = document.getElementById('misi3');
+    const ucapan = document.getElementById('ucapan');
+    const textUcapan = document.getElementById('textUcapan');
+    const love = document.getElementById('love');
+    const loveArea = document.getElementById('loveArea');
+    const hadiah = document.getElementById('hadiah');
+
+    function confettiBurst() {
+      for (let i = 0; i < 50; i++) {
+        const conf = document.createElement('div');
+        conf.classList.add('confetti');
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.background = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        conf.style.animationDuration = (2 + Math.random() * 3) + 's';
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 3000);
+      }
+    }
+
+    startBtn.addEventListener('click', () => {
+      startBtn.style.display = 'none';
+      document.getElementById('intro').style.display = 'none';
+      misi1.classList.remove('hidden');
+    });
+
+    // Misi 1
+    document.querySelectorAll('.balon').forEach(balon => {
+      balon.addEventListener('click', () => {
+        if (balon.dataset.right === "true") {
+          confettiBurst();
+          alert("🎉 Hebat! Misi pertama selesai!");
+          misi1.classList.add('hidden');
+          misi2.classList.remove('hidden');
+          textUcapan.innerText = "Selamat ulang tahun, Mba Inaa! 🥳 Semoga hari ini penuh tawa dan kebahagiaan. Semoga panjang umur dan sehat selalu 💕";
+        } else {
+          alert("😆 Salah balon, coba lagi ya!");
+        }
+      });
+    });
+
+    // Misi 2
+    let dragging = false;
+    love.addEventListener('mousedown', () => dragging = true);
+    document.addEventListener('mouseup', () => dragging = false);
+    document.addEventListener('mousemove', e => {
+      if (dragging) {
+        love.style.left = (e.pageX - 20) + 'px';
+        love.style.top = (e.pageY - 20) + 'px';
+        const rect = love.getBoundingClientRect();
+        const areaRect = loveArea.getBoundingClientRect();
+        if (
+          rect.left > areaRect.left + 30 &&
+          rect.right < areaRect.right - 30 &&
+          rect.top > areaRect.top + 30 &&
+          rect.bottom < areaRect.bottom - 30
+        ) {
+          confettiBurst();
+          alert("💖 Love-nya pas di tengah! Misi kedua selesai!");
+          misi2.classList.add('hidden');
+          misi3.classList.remove('hidden');
+          textUcapan.innerText = "Terima kasih sudah jadi sosok yang kuat dan baik hati, Mba Inaa 🌸 Dunia jadi lebih indah karena kehadiranmu.";
+        }
+      }
+    });
+
+    // Misi 3
+    hadiah.addEventListener('click', () => {
+      confettiBurst();
+      alert("🎁 Ucapan terakhir terbuka!");
+      misi3.classList.add('hidden');
+      ucapan.classList.remove('hidden');
+      textUcapan.innerText = "Terima kasih sudah lahir, tumbuh, dan berjuang sejauh ini 💐 Semoga setiap langkah Mba Inaa penuh cinta, tawa, dan berkah tanpa henti. Selamat ulang tahun sekali lagi! 🥰💖";
+    });
+  </script>
+</body>
+</html>
